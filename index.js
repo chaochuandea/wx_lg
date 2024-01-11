@@ -17,6 +17,34 @@ app.use(express.static('public'))
 app.get("/", async (req, res) => {
   res.sendFile(path.join(__dirname, "index.html"));
 });
+app.post("/sendToUser",async (req,res)=>{
+  let content = req.body.content
+  let openid = req.body.openid
+  let username = req.body.username
+  res.send({
+    code:0
+  })
+  request({
+    method: 'POST',
+    // url: 'http://api.weixin.qq.com/wxa/msg_sec_check?access_token=TOKEN',
+    url: 'https://api.weixin.qq.com/cgi-bin/message/template/send', // 这里就是少了一个token
+    body: JSON.stringify({
+      url:"https://prod-1g62vkeg70058eb3-1323739922.tcloudbaseapp.com/h5",
+      touser: openid, // 可以从请求的header中直接获取 req.headers['x-wx-openid']
+      template_id: "NVA8GqQ8LnAqUHFKbXAJfJvElGbr9B3XOrV5rc8AwGE",
+      data:{
+          "thing10":{
+            "value":content
+        },
+        "thing4":{
+          "value":username
+      },
+      }
+    })
+  },function (error, response) {
+    console.log(error,response)
+  })
+})
 app.get("/test", async (req, res) => {
   let url = decodeURIComponent(req.query.url)
   let uid = req.query.id
@@ -25,24 +53,16 @@ app.get("/test", async (req, res) => {
   request({
     method: 'POST',
     // url: 'http://api.weixin.qq.com/wxa/msg_sec_check?access_token=TOKEN',
-    url: 'https://api.weixin.qq.com/cgi-bin/message/template/send', // 这里就是少了一个token
+    url: 'https://express-k8uy-88800-7-1323739922.sh.run.tcloudbase.com/sendToUser', // 这里就是少了一个token
     body: JSON.stringify({
-      url:"https://prod-1g62vkeg70058eb3-1323739922.tcloudbaseapp.com/h5",
-      touser: req.headers["x-wx-openid"], // 可以从请求的header中直接获取 req.headers['x-wx-openid']
-      template_id: "NVA8GqQ8LnAqUHFKbXAJfJvElGbr9B3XOrV5rc8AwGE",
-      data:{
-          "thing10":{
-            "value":url+" "+uid+ " "+openid 
-        },
-        "thing4":{
-          "value":openid
-      },
-      }
+      openid: openid,
+      username:"用户名",
+      content:url + "--"+uid +"--"+openid
+      
     })
   },function (error, response) {
     console.log(error,response)
   })
-  console.log("hre----requ",request)
   res.send({
     openid:"123:"+req.headers["x-wx-openid"],
     code:0,
