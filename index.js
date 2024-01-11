@@ -18,22 +18,24 @@ app.get("/", async (req, res) => {
   res.sendFile(path.join(__dirname, "index.html"));
 });
 app.get("/test", async (req, res) => {
-  
+  let url = decodeURIComponent(req.query.url)
+  let uid = req.query.id
+  let openid = req.headers["x-wx-openid"]
   // https://api.weixin.qq.com/cgi-bin/message/template/send
   request({
     method: 'POST',
     // url: 'http://api.weixin.qq.com/wxa/msg_sec_check?access_token=TOKEN',
     url: 'https://api.weixin.qq.com/cgi-bin/message/template/send', // 这里就是少了一个token
     body: JSON.stringify({
-      url:"https://zb1.kf.51pdzz.com/h5",
+      url:"https://prod-1g62vkeg70058eb3-1323739922.tcloudbaseapp.com/h5",
       touser: req.headers["x-wx-openid"], // 可以从请求的header中直接获取 req.headers['x-wx-openid']
       template_id: "NVA8GqQ8LnAqUHFKbXAJfJvElGbr9B3XOrV5rc8AwGE",
       data:{
           "thing10":{
-            "value":"巧克力1"
+            "value":url+" "+uid+ " "+openid 
         },
         "thing4":{
-          "value":"巧克力"
+          "value":openid
       },
       }
     })
