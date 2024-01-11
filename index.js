@@ -31,26 +31,26 @@ app.post("/sendToUser",async (req,res)=>{
     username,
     url
   })
-  request({
-    method: 'POST',
-    // url: 'http://api.weixin.qq.com/wxa/msg_sec_check?access_token=TOKEN',
-    url: 'https://api.weixin.qq.com/cgi-bin/message/template/send', // 这里就是少了一个token
-    body: JSON.stringify({
-      url:url,
-      touser: openid, // 可以从请求的header中直接获取 req.headers['x-wx-openid']
-      template_id: "NVA8GqQ8LnAqUHFKbXAJfJvElGbr9B3XOrV5rc8AwGE",
-      data:{
-          "thing10":{
-            "value":content
-        },
-        "thing4":{
-          "value":username
-      },
-      }
-    })
-  },function (error, response) {
-    console.log(error,response)
-  })
+  // request({
+  //   method: 'POST',
+  //   // url: 'http://api.weixin.qq.com/wxa/msg_sec_check?access_token=TOKEN',
+  //   url: 'https://api.weixin.qq.com/cgi-bin/message/template/send', // 这里就是少了一个token
+  //   body: JSON.stringify({
+  //     url:url,
+  //     touser: openid, // 可以从请求的header中直接获取 req.headers['x-wx-openid']
+  //     template_id: "NVA8GqQ8LnAqUHFKbXAJfJvElGbr9B3XOrV5rc8AwGE",
+  //     data:{
+  //         "thing10":{
+  //           "value":content
+  //       },
+  //       "thing4":{
+  //         "value":username
+  //     },
+  //     }
+  //   })
+  // },function (error, response) {
+  //   console.log(error,response)
+  // })
 })
 app.get("/test", async (req, res) => {
   let url = decodeURIComponent(req.query.url)
@@ -68,8 +68,8 @@ app.get("/test", async (req, res) => {
       content:url + "--"+uid +"--"+openid
     })
   },function (error, response) {
-    console.log(error,response)
-    res.send(response)
+    console.log("error",error)
+    res.send(response.json())
   })
   
 });
