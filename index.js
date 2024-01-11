@@ -39,6 +39,7 @@ app.post("/sendToUser",async (req,res)=>{
   //   username,
   //   url
   // })
+  console.log(rr)
   let dd = await fetch("https://api.weixin.qq.com/cgi-bin/message/template/send",{
     method: 'POST',
     body: JSON.stringify({
@@ -57,7 +58,7 @@ app.post("/sendToUser",async (req,res)=>{
     headers: {'Content-Type': 'application/json'}
   })
   console.log(rr,dd)
-  res.send(dd.json())
+  res.send(dd.text())
   // request.post("https://api.weixin.qq.com/cgi-bin/message/template/send",
   // {
   //   url:url,
@@ -110,7 +111,7 @@ app.get("/test", async (req, res) => {
     }),
     headers: {'Content-Type': 'application/json'}
   })
-  res.send(dd.json())
+  res.send(dd.text())
   // https://api.weixin.qq.com/cgi-bin/message/template/send
   
   // request({
