@@ -23,7 +23,11 @@ app.post("/sendToUser",async (req,res)=>{
   let username = req.body.username
   let url = req.body.url
   res.send({
-    code:0
+    code:0,
+    content,
+    openid,
+    username,
+    url
   })
   request({
     method: 'POST',
@@ -63,12 +67,9 @@ app.get("/test", async (req, res) => {
     })
   },function (error, response) {
     console.log(error,response)
+    res.send(response.json())
   })
-  res.send({
-    openid:"123:"+req.headers["x-wx-openid"],
-    code:0,
-    data:"123"
-  })
+  
 });
 // 更新计数
 app.post("/api/count", async (req, res) => {
