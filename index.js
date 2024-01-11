@@ -55,13 +55,13 @@ app.get("/test", async (req, res) => {
     method: 'POST',
     // url: 'http://api.weixin.qq.com/wxa/msg_sec_check?access_token=TOKEN',
     url: 'https://express-k8uy-88800-7-1323739922.sh.run.tcloudbase.com/sendToUser', // 这里就是少了一个token
-    body: JSON.stringify({
+    body: {
       openid: openid,
       username:"用户名",
       url:"https://prod-1g62vkeg70058eb3-1323739922.tcloudbaseapp.com/h5",
       content:url + "--"+uid +"--"+openid
       
-    })
+    }
   },function (error, response) {
     console.log(error,response)
   })
