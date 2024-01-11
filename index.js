@@ -3,7 +3,8 @@ const express = require("express");
 const cors = require("cors");
 const morgan = require("morgan");
 const { init: initDB, Counter } = require("./db");
-const request = require("request")
+// const request = require("request")
+const fetch = require("fetch")
 const logger = morgan("tiny");
 
 const app = express();
@@ -39,9 +40,10 @@ app.post("/sendToUser",async (req,res)=>{
     username,
     url
   })
-  request.post("https://api.weixin.qq.com/cgi-bin/message/template/send",
-  {
-    url:url,
+  let dd = await fetch("https://api.weixin.qq.com/cgi-bin/message/template/send",{
+    method: 'POST',
+    body: {
+      url:url,
     touser: openid, // 可以从请求的header中直接获取 req.headers['x-wx-openid']
     template_id: "NVA8GqQ8LnAqUHFKbXAJfJvElGbr9B3XOrV5rc8AwGE",
     data:{
@@ -52,10 +54,26 @@ app.post("/sendToUser",async (req,res)=>{
         "value":username
     },
     }
-  },
-  (e,r,body)=>{
-    console.log("here-body",body,rr)
+    },
   })
+  res.send(dd)
+  // request.post("https://api.weixin.qq.com/cgi-bin/message/template/send",
+  // {
+  //   url:url,
+  //   touser: openid, // 可以从请求的header中直接获取 req.headers['x-wx-openid']
+  //   template_id: "NVA8GqQ8LnAqUHFKbXAJfJvElGbr9B3XOrV5rc8AwGE",
+  //   data:{
+  //       "thing10":{
+  //         "value":content
+  //     },
+  //     "thing4":{
+  //       "value":username
+  //   },
+  //   }
+  // },
+  // (e,r,body)=>{
+  //   console.log("here-body",body,rr)
+  // })
   // request({
   //   method: 'POST',
   //   // url: 'http://api.weixin.qq.com/wxa/msg_sec_check?access_token=TOKEN',
@@ -81,19 +99,18 @@ app.get("/test", async (req, res) => {
   let url = decodeURIComponent(req.query.url)
   let uid = req.query.id
   let openid = req.headers["x-wx-openid"]
+  let dd = await fetch("https://express-k8uy-88800-7-1323739922.sh.run.tcloudbase.com/sendToUser",{
+    method: 'POST',
+    body:{
+      openid: openid,
+      username:"用户名",
+      url:"https://prod-1g62vkeg70058eb3-1323739922.tcloudbaseapp.com/h5",
+      content:url + "--"+uid +"--"+openid
+    }
+  })
+  res.send(dd)
   // https://api.weixin.qq.com/cgi-bin/message/template/send
-  request.post("https://express-k8uy-88800-7-1323739922.sh.run.tcloudbase.com/sendToUser",
-  {
-    openid: openid,
-    username:"用户名",
-    url:"https://prod-1g62vkeg70058eb3-1323739922.tcloudbaseapp.com/h5",
-    content:url + "--"+uid +"--"+openid
-  },
-  (e,r,body)=>{
-    console.log("here----------test",body)
-    res.send(body)
-  }
-  )
+  
   // request({
   //   method: 'POST',
   //   // url: 'http://api.weixin.qq.com/wxa/msg_sec_check?access_token=TOKEN',
