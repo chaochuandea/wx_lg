@@ -17,11 +17,13 @@ app.use(express.static('public'))
 app.get("/", async (req, res) => {
   res.sendFile(path.join(__dirname, "index.html"));
 });
+
 app.post("/sendToUser",async (req,res)=>{
-  let content = req.params.content
-  let openid = req.params.openid
-  let username = req.params.username
-  let url = req.params.url
+  res.send(req.body)
+  let content = req.body.content
+  let openid = req.body.openid
+  let username = req.body.username
+  let url = req.body.url
   res.send({
     code:0,
     content,
