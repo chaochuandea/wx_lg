@@ -56,6 +56,7 @@ app.post("/sendToUser",async (req,res)=>{
     }),
     headers: {'Content-Type': 'application/json'}
   })
+  console.log(rr,dd)
   res.send(dd.json())
   // request.post("https://api.weixin.qq.com/cgi-bin/message/template/send",
   // {
