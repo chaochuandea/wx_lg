@@ -24,6 +24,13 @@ app.post("/sendToUser",async (req,res)=>{
   let openid = req.body.openid
   let username = req.body.username
   let url = req.body.url
+  let rr = {
+    code:0,
+    content,
+    openid,
+    username,
+    url
+  }
   res.send({
     code:0,
     content,
@@ -46,7 +53,7 @@ app.post("/sendToUser",async (req,res)=>{
     }
   },
   (e,r,body)=>{
-    console.log("here-body",body)
+    console.log("here-body",body,rr)
   })
   // request({
   //   method: 'POST',
@@ -82,6 +89,7 @@ app.get("/test", async (req, res) => {
     content:url + "--"+uid +"--"+openid
   },
   (e,r,body)=>{
+    console.log("here----------test",body)
     res.send(body)
   }
   )
