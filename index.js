@@ -29,10 +29,10 @@ app.get("/test", async (req, res) => {
       touser: req.headers["x-wx-openid"], // 可以从请求的header中直接获取 req.headers['x-wx-openid']
       template_id: "NVA8GqQ8LnAqUHFKbXAJfJvElGbr9B3XOrV5rc8AwGE",
       data:{
-          "keyword1":{
+          "thing10":{
             "value":"巧克力1"
         },
-        "keyword2":{
+        "thing4":{
           "value":"巧克力"
       },
       }
