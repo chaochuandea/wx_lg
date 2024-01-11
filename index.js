@@ -16,7 +16,12 @@ app.use(logger);
 app.get("/", async (req, res) => {
   res.sendFile(path.join(__dirname, "index.html"));
 });
-
+app.get("/test", async (req, res) => {
+  res.send({
+    code:0,
+    data:"123"
+  })
+});
 // 更新计数
 app.post("/api/count", async (req, res) => {
   const { action } = req.body;
