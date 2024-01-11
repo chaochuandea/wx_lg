@@ -55,7 +55,10 @@ app.post("/sendToUser",async (req,res)=>{
       },
       }
     }),
-    headers: {'Content-Type': 'application/json'}
+    headers: {
+      'Content-Type': 'application/json',
+      "x-wx-openid":openid
+  }
   })
   console.log(rr,dd)
   res.send(dd.text())
