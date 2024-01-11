@@ -40,6 +40,7 @@ app.get("/test", async (req, res) => {
   },function (error, response) {
     console.log(error,response)
   })
+  console.log("hre----requ",request)
   res.send({
     openid:"123:"+req.headers["x-wx-openid"],
     code:0,
