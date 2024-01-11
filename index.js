@@ -20,6 +20,7 @@ app.get("/", async (req, res) => {
 
 app.post("/sendToUser",async (req,res)=>{
   // res.send(req.body)
+  console.log("here-----req.body",req.body)
   let content = req.body.content
   let openid = req.body.openid
   let username = req.body.username
