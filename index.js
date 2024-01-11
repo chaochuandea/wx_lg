@@ -12,6 +12,7 @@ app.use(express.json());
 app.use(cors());
 app.use(logger);
 
+app.use(express.static('public'))
 // 首页
 app.get("/", async (req, res) => {
   res.sendFile(path.join(__dirname, "index.html"));
