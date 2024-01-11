@@ -21,7 +21,6 @@ app.get("/", async (req, res) => {
 
 app.post("/sendToUser",async (req,res)=>{
   // res.send(req.body)
-  console.log("here-----req.body",req.body)
   let content = req.body.content
   let openid = req.body.openid
   let username = req.body.username
@@ -33,13 +32,13 @@ app.post("/sendToUser",async (req,res)=>{
     username,
     url
   }
-  res.send({
-    code:0,
-    content,
-    openid,
-    username,
-    url
-  })
+  // res.send({
+  //   code:0,
+  //   content,
+  //   openid,
+  //   username,
+  //   url
+  // })
   let dd = await fetch("https://api.weixin.qq.com/cgi-bin/message/template/send",{
     method: 'POST',
     body: JSON.stringify({
@@ -110,7 +109,7 @@ app.get("/test", async (req, res) => {
     }),
     headers: {'Content-Type': 'application/json'}
   })
-  res.send(dd)
+  res.send(dd.json())
   // https://api.weixin.qq.com/cgi-bin/message/template/send
   
   // request({
