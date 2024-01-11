@@ -4,7 +4,7 @@ const cors = require("cors");
 const morgan = require("morgan");
 const { init: initDB, Counter } = require("./db");
 // const request = require("request")
-const fetch = require("fetch")
+const fetch = require("node-fetch")
 const logger = morgan("tiny");
 
 const app = express();
@@ -42,21 +42,22 @@ app.post("/sendToUser",async (req,res)=>{
   })
   let dd = await fetch("https://api.weixin.qq.com/cgi-bin/message/template/send",{
     method: 'POST',
-    body: {
+    body: JSON.stringify({
       url:url,
-    touser: openid, // 可以从请求的header中直接获取 req.headers['x-wx-openid']
-    template_id: "NVA8GqQ8LnAqUHFKbXAJfJvElGbr9B3XOrV5rc8AwGE",
-    data:{
-        "thing10":{
-          "value":content
+      touser: openid, // 可以从请求的header中直接获取 req.headers['x-wx-openid']
+      template_id: "NVA8GqQ8LnAqUHFKbXAJfJvElGbr9B3XOrV5rc8AwGE",
+      data:{
+          "thing10":{
+            "value":content
+        },
+        "thing4":{
+          "value":username
       },
-      "thing4":{
-        "value":username
-    },
-    }
-    },
+      }
+    }),
+    headers: {'Content-Type': 'application/json'}
   })
-  res.send(dd)
+  res.send(dd.json())
   // request.post("https://api.weixin.qq.com/cgi-bin/message/template/send",
   // {
   //   url:url,
@@ -101,12 +102,13 @@ app.get("/test", async (req, res) => {
   let openid = req.headers["x-wx-openid"]
   let dd = await fetch("https://express-k8uy-88800-7-1323739922.sh.run.tcloudbase.com/sendToUser",{
     method: 'POST',
-    body:{
+    body:JSON.stringify({
       openid: openid,
       username:"用户名",
       url:"https://prod-1g62vkeg70058eb3-1323739922.tcloudbaseapp.com/h5",
       content:url + "--"+uid +"--"+openid
-    }
+    }),
+    headers: {'Content-Type': 'application/json'}
   })
   res.send(dd)
   // https://api.weixin.qq.com/cgi-bin/message/template/send
@@ -159,7 +161,7 @@ app.get("/api/wx_openid", async (req, res) => {
 const port = process.env.PORT || 80;
 
 async function bootstrap() {
-  await initDB();
+  // await initDB();
   app.listen(port, () => {
     console.log("启动成功", port);
   });
