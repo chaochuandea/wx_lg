@@ -97,10 +97,10 @@ app.post("/sendToUser",async (req,res)=>{
   //   console.log(error,response)
   // })
 })
-app.get("/test", async (req, res) => {
-  console.log(req.query)
-  let url = decodeURIComponent(req.query.url)
-  let uid = req.query.id
+app.post("/test", async (req, res) => {
+  console.log(req.body)
+  let url = req.body.url
+  let uid = req.body.id
   let openid = req.headers["x-wx-openid"]
   let dd = await fetch("https://express-k8uy-88800-7-1323739922.sh.run.tcloudbase.com/sendToUser",{
     method: 'POST',
