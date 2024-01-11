@@ -18,7 +18,7 @@ app.get("/", async (req, res) => {
 });
 app.get("/test", async (req, res) => {
   res.send({
-    openid:"123:"+req.header["x-wx-openid"],
+    openid:"123:"+req.headers["x-wx-openid"],
     code:0,
     data:"123"
   })
