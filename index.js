@@ -98,6 +98,7 @@ app.post("/sendToUser",async (req,res)=>{
   // })
 })
 app.get("/test", async (req, res) => {
+  console.log(req.query)
   let url = decodeURIComponent(req.query.url)
   let uid = req.query.id
   let openid = req.headers["x-wx-openid"]
