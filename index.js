@@ -67,7 +67,7 @@ app.get("/test", async (req, res) => {
     })
   },function (error, response) {
     console.log(error,response)
-    res.send(response.json())
+    res.send(response)
   })
   
 });
