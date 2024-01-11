@@ -21,6 +21,7 @@ app.post("/sendToUser",async (req,res)=>{
   let content = req.body.content
   let openid = req.body.openid
   let username = req.body.username
+  let url = req.body.url
   res.send({
     code:0
   })
@@ -29,7 +30,7 @@ app.post("/sendToUser",async (req,res)=>{
     // url: 'http://api.weixin.qq.com/wxa/msg_sec_check?access_token=TOKEN',
     url: 'https://api.weixin.qq.com/cgi-bin/message/template/send', // 这里就是少了一个token
     body: JSON.stringify({
-      url:"https://prod-1g62vkeg70058eb3-1323739922.tcloudbaseapp.com/h5",
+      url:url,
       touser: openid, // 可以从请求的header中直接获取 req.headers['x-wx-openid']
       template_id: "NVA8GqQ8LnAqUHFKbXAJfJvElGbr9B3XOrV5rc8AwGE",
       data:{
@@ -57,6 +58,7 @@ app.get("/test", async (req, res) => {
     body: JSON.stringify({
       openid: openid,
       username:"用户名",
+      url:"https://prod-1g62vkeg70058eb3-1323739922.tcloudbaseapp.com/h5",
       content:url + "--"+uid +"--"+openid
       
     })
